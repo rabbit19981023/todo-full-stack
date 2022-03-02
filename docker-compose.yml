@@ -1,0 +1,72 @@
+version: "3.9"
+
+services:
+  nginx:
+    build:
+      context: "./nginx"
+      dockerfile: "nginx.dockerfile"
+    image: todo/nginx
+    container_name: todo_nginx
+    restart: always
+    working_dir: "/etc/nginx"
+    volumes:
+      - "./nginx/default.conf:/etc/nginx/conf.d/default.conf"
+    ports:
+      - "80:80"
+      - "3000:3000"
+    networks:
+      - todos
+
+  vue:
+    build:
+      context: "./vue"
+      dockerfile: "vue.dockerfile"
+    image: todo/vue
+    container_name: todo_vue
+    tty: true
+    restart: always
+    working_dir: "/var/www/todo/vue"
+    volumes:
+      - "./vue:/var/www/todo/vue"
+    expose:
+      - "8080"
+    networks:
+      - todos
+
+  express:
+    depends_on:
+      - mysql
+    build:
+      context: "./express"
+      dockerfile: "express.dockerfile"
+    image: todo/express
+    container_name: todo_express
+    tty: true
+    restart: always
+    working_dir: "/var/www/todo/express"
+    volumes:
+      - "./express:/var/www/todo/express"
+    expose:
+      - "3000"
+    networks:
+      - todos
+
+  mysql:
+    build:
+      context: "./mysql"
+      dockerfile: "mysql.dockerfile"
+    image: todo/mysql
+    container_name: todo_mysql
+    restart: always
+    env_file:
+      - "./.env"
+    working_dir: "/var/lib/mysql"
+    volumes:
+      - "./mysql/mydata:/var/lib/mysql"
+    expose:
+      - "3306"
+    networks:
+      - todos
+
+networks:
+  todos:

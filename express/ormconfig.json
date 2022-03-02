@@ -1,0 +1,31 @@
+[
+  {
+    "name": "development",
+    "type": "mysql",
+    "host": "mysql",
+    "port": 3306,
+    "username": "andrew",
+    "password": "password",
+    "database": "development_db",
+    "dropSchema": false,
+    "synchronize": false,
+    "entities": ["./build/entity/*.js"],
+    "migrations": ["./build/migration/*.js"],
+    "cli": {
+      "entitiesDir": "./src/entity",
+      "migrationsDir": "./src/migration"
+    }
+  },
+  {
+    "name": "test",
+    "type": "mysql",
+    "host": "mysql",
+    "port": 3306,
+    "username": "test",
+    "password": "test",
+    "database": "test",
+    "dropSchema": true,
+    "synchronize": true,
+    "entities": ["./src/entity/*.ts"]
+  }
+]
