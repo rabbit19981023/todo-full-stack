@@ -64,7 +64,11 @@ This might NOT be a simple todo list as you think. The whole project was develop
 
 > If you are first time to run the application, you need to do things below:
 
-1. Get into MySQL workbench: `$ docker exec -it todo_mysql mysql -u root -p` (password is stored in `.env`)
+1. Get into MySQL workbench (password is stored in `.env`):
+
+  ```bash
+  $ docker exec -it todo_mysql mysql -u root -p
+  ```
 
 2. Create database:
 
@@ -84,15 +88,15 @@ This might NOT be a simple todo list as you think. The whole project was develop
 
   - for test:
 
-  ```sql
-  mysql> CREATE USER 'test'@'%' IDENTIFIED WITH mysql_native_password BY 'test';
-  ```
+    ```sql
+    mysql> CREATE USER 'test'@'%' IDENTIFIED WITH mysql_native_password BY 'test';
+    ```
 
   - for development:
 
-  ```sql
-  mysql> CREATE USER 'andrew'@'%' IDENTIFIED WITH mysql_native_password BY 'password';
-  ```
+    ```sql
+    mysql> CREATE USER 'andrew'@'%' IDENTIFIED WITH mysql_native_password BY 'password';
+    ```
 
 4. Grant privileges on database to user:
 
