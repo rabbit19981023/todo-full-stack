@@ -67,7 +67,7 @@ This might NOT be a simple todo list as you think. The whole project was develop
 1. Get into MySQL workbench (password is stored in `.env`):
 
   ```bash
-  $ docker exec -it todo_mysql mysql -u root -p
+  $ sudo docker exec -it todo_mysql mysql -u root -p
   ```
 
 2. Create database:
