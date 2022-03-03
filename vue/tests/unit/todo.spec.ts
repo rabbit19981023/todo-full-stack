@@ -28,7 +28,7 @@ describe('Todo.vue', () => {
     ]
 
     // mock vuex store action
-    mockGenerateTodoList(todos)
+    mockGenerateTodolist(todos)
 
     const wrapper = factory()
 
@@ -46,7 +46,7 @@ describe('Todo.vue', () => {
     const todos: TodoItem[] = []
 
     // mock vuex store actions
-    mockGenerateTodoList(todos)
+    mockGenerateTodolist(todos)
     mockCreateTodo()
 
     const wrapper = factory()
@@ -64,7 +64,7 @@ describe('Todo.vue', () => {
     const todos: TodoItem[] = []
 
     // mock vuex store action
-    mockGenerateTodoList(todos)
+    mockGenerateTodolist(todos)
     mockCompleteTodo()
 
     const wrapper = factory()
@@ -83,7 +83,7 @@ describe('Todo.vue', () => {
     const todos: TodoItem[] = []
 
     // mock vuex store actions
-    mockGenerateTodoList(todos)
+    mockGenerateTodolist(todos)
     mockDeleteTodo()
 
     const wrapper = factory()
@@ -98,62 +98,70 @@ describe('Todo.vue', () => {
 })
 
 /** utils */
-const mockGenerateTodoList = (todos: TodoItem[]) => {
+const mockGenerateTodolist = (todos: TodoItem[]) => {
+  const mockFunc = async (ctx: ActionContext<State, State>) => {
+    ctx.commit('generateTodolist', todos)
+  }
+
   // manual mock Vuex store action (mock http request)
   (storeOptions.actions!).generateTodolist = jest.fn()
-    .mockImplementation(async (ctx: ActionContext<State, State>) => {
-      ctx.commit('generateTodolist', todos)
-    })
+    .mockImplementation(mockFunc)
 }
 
 const mockCreateTodo = () => {
+  const mockFunc = async (ctx: ActionContext<State, State>, name: string) => {
+    if (name) {
+      const todo = {
+        id: ctx.state.todos.length + 1,
+        name,
+        is_complete: false
+      }
+      ctx.commit('createTodo', todo)
+      return
+    }
+    alert('please typing your todo!')
+  }
+
   // manual mock Vuex store action (mock http request)
   (storeOptions.actions!).createTodo = jest.fn()
-    .mockImplementation(async (ctx: ActionContext<State, State>, name: string) => {
-      if (name) {
-        const todo = {
-          id: ctx.state.todos.length + 1,
-          name,
-          is_complete: false
-        }
-        ctx.commit('createTodo', todo)
-        return
-      }
-      alert('please typing your todo!')
-    })
+    .mockImplementation(mockFunc)
 }
 
 const mockCompleteTodo = () => {
+  const mockFunc = async (ctx: ActionContext<State, State>, id: number) => {
+    const todos = ctx.state.todos
+    const targetTodo = todos.find(todo => todo.id === id)
+
+    if (targetTodo) {
+      targetTodo.is_complete = !targetTodo.is_complete
+      ctx.commit('completeTodo', targetTodo)
+      return
+    }
+
+    alert('invalid operation!')
+  }
+
   // manual mock Vuex store action (mock http request)
   (storeOptions.actions!).completeTodo = jest.fn()
-    .mockImplementation(async (ctx: ActionContext<State, State>, id: number) => {
-      const todos = ctx.state.todos
-      const targetTodo = todos.find(todo => todo.id === id)
-
-      if (targetTodo) {
-        targetTodo.is_complete = !targetTodo.is_complete
-        ctx.commit('completeTodo', targetTodo)
-        return
-      }
-
-      alert('invalid operation!')
-    })
+    .mockImplementation(mockFunc)
 }
 
 const mockDeleteTodo = () => {
+  const mockFunc = async (ctx: ActionContext<State, State>, id: number) => {
+    const todos = ctx.state.todos
+    const targetTodo = todos.find(todo => todo.id === id)
+
+    if (targetTodo) {
+      ctx.commit('deleteTodo', targetTodo)
+      return
+    }
+
+    alert('invalid operation!')
+  }
+
   // manual mock Vuex store action (mock http request)
   (storeOptions.actions!).deleteTodo = jest.fn()
-    .mockImplementation(async (ctx: ActionContext<State, State>, id: number) => {
-      const todos = ctx.state.todos
-      const targetTodo = todos.find(todo => todo.id === id)
-
-      if (targetTodo) {
-        ctx.commit('deleteTodo', targetTodo)
-        return
-      }
-
-      alert('invalid operation!')
-    })
+    .mockImplementation(mockFunc)
 }
 
 const createTodo = async (wrapper: VueWrapper<any>) => {
