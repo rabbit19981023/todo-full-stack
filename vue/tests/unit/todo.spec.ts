@@ -127,16 +127,13 @@ const mockCompleteTodo = () => {
   // manual mock Vuex store action (mock http request)
   (storeOptions.actions!).completeTodo = jest.fn()
     .mockImplementation(async (ctx: ActionContext<State, State>, id: number) => {
-      if (id >= 1) {
-        const todos = ctx.state.todos
-        const targetTodo = todos.find(todo => todo.id === id)
+      const todos = ctx.state.todos
+      const targetTodo = todos.find(todo => todo.id === id)
 
-        if (targetTodo) {
-          targetTodo.is_complete = !targetTodo.is_complete
-
-          ctx.commit('completeTodo', targetTodo)
-          return
-        }
+      if (targetTodo) {
+        targetTodo.is_complete = !targetTodo.is_complete
+        ctx.commit('completeTodo', targetTodo)
+        return
       }
 
       alert('invalid operation!')
@@ -147,14 +144,12 @@ const mockDeleteTodo = () => {
   // manual mock Vuex store action (mock http request)
   (storeOptions.actions!).deleteTodo = jest.fn()
     .mockImplementation(async (ctx: ActionContext<State, State>, id: number) => {
-      if (id >= 1) {
-        const todos = ctx.state.todos
-        const targetTodo = todos.find(todo => todo.id === id)
+      const todos = ctx.state.todos
+      const targetTodo = todos.find(todo => todo.id === id)
 
-        if (targetTodo) {
-          ctx.commit('deleteTodo', targetTodo)
-          return
-        }
+      if (targetTodo) {
+        ctx.commit('deleteTodo', targetTodo)
+        return
       }
 
       alert('invalid operation!')
