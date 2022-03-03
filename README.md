@@ -128,31 +128,25 @@ This might NOT be a simple todo list as you think. The whole project was develop
   $ npm ci
   ```
 
-2. Run database migrations for test:
-
-  ```bash
-  $ npm run typeorm -- migration:run --connection test
-  ```
-
-3. Run database migrations for development:
+2. Run database migrations for development:
 
   ```bash
   $ npm run typeorm -- migration:run --connection development
   ```
 
-4. Run all unit tests:
+3. Run all unit tests:
 
   ```bash
   $ npm run test:unit
   ```
 
-5. Run all integration tests:
+4. Run all integration tests:
 
   ```bash
   $ npm run test:integration
   ```
 
-6. Run the development server:
+5. Run the development server:
 
   ```bash
   $ npm run serve
