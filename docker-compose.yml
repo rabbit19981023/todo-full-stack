@@ -23,13 +23,13 @@ services:
       dockerfile: "vue.dockerfile"
     image: todo/vue
     container_name: todo_vue
-    tty: true
+    tty: true   # keep container running
     restart: always
     working_dir: "/var/www/todo/vue"
     volumes:
       - "./vue:/var/www/todo/vue"
     expose:
-      - "8080"
+      - "8080"  # expose port:8080 to other containers on same network: todos
     networks:
       - todos
 
@@ -41,13 +41,13 @@ services:
       dockerfile: "express.dockerfile"
     image: todo/express
     container_name: todo_express
-    tty: true
+    tty: true   # keep container running
     restart: always
     working_dir: "/var/www/todo/express"
     volumes:
       - "./express:/var/www/todo/express"
     expose:
-      - "3000"
+      - "3000"  # expose port:3000 to other containers on same network: todos
     networks:
       - todos
 
@@ -64,7 +64,7 @@ services:
     volumes:
       - "./mysql/mydata:/var/lib/mysql"
     expose:
-      - "3306"
+      - "3306"  # expose port:3306 to other containers on same network: todos
     networks:
       - todos
 
