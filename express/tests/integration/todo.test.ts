@@ -88,10 +88,7 @@ describe('Create a todo', () => {
     const expected: Expected = {
       statusCode: 400,
       headers: [/application\/json/i, /charset=utf-8/i],
-      body: {
-        status: 'error',
-        msg: 'Bad request.'
-      }
+      body: { status: 'error', msg: 'Bad request.' }
     }
     processTestCase(actual, expected)
   })
@@ -101,9 +98,7 @@ describe('Create a todo', () => {
     // mock database operation error (manual mock)
     const originAddOne = todoRepo.addOne
     todoRepo.addOne = jest.fn()
-      .mockImplementation(async () => {
-        throw new Error()
-      })
+      .mockImplementation(async () => { throw new Error() })
 
     /** act */
     const actual = await utils.createTodo(globalApp)
@@ -115,10 +110,7 @@ describe('Create a todo', () => {
     const expected: Expected = {
       statusCode: 500,
       headers: [/application\/json/i, /charset=utf-8/i],
-      body: {
-        status: 'error',
-        msg: 'Internal server error.'
-      }
+      body: { status: 'error', msg: 'Internal server error.' }
     }
     processTestCase(actual, expected)
   })
@@ -160,9 +152,7 @@ describe('Read all todos', () => {
 
     // mock database operation error (spy on function)
     const spyGetAll = jest.spyOn(todoRepo, 'getAll')
-      .mockImplementation(() => {
-        throw new Error()
-      })
+      .mockImplementation(() => { throw new Error() })
 
     /** act */
     const actual = await request(globalApp).get('/api/v1/todos')
@@ -174,10 +164,7 @@ describe('Read all todos', () => {
     const expected: Expected = {
       statusCode: 500,
       headers: [/application\/json/i, /charset=utf-8/i],
-      body: {
-        status: 'error',
-        msg: 'Internal server error.'
-      }
+      body: { status: 'error', msg: 'Internal server error.' }
     }
     processTestCase(actual, expected)
   })
@@ -247,9 +234,7 @@ describe('Read a todo', () => {
 
     // mock database operation error
     const spyGetOne = jest.spyOn(todoRepo, 'getOne')
-      .mockImplementation(() => {
-        throw new Error()
-      })
+      .mockImplementation(() => { throw new Error() })
 
     /** act */
     const actual = await request(globalApp).get('/api/v1/todos/1')
@@ -261,10 +246,7 @@ describe('Read a todo', () => {
     const expected: Expected = {
       statusCode: 500,
       headers: [/application\/json/i, /charset=utf-8/i],
-      body: {
-        status: 'error',
-        msg: 'Internal server error.'
-      }
+      body: { status: 'error', msg: 'Internal server error.' }
     }
     processTestCase(actual, expected)
   })
@@ -279,9 +261,7 @@ describe('Update a todo', () => {
     /** act */
     const actual = await request(globalApp)
       .patch('/api/v1/todos/1')
-      .send({
-        name: 'programming whole a day!'
-      })
+      .send({ name: 'programming whole a day!' })
 
     /** assert */
     const expected: Expected = {
@@ -308,9 +288,7 @@ describe('Update a todo', () => {
     /** act */
     const actual = await request(globalApp)
       .patch('/api/v1/todos/1')
-      .send({
-        is_complete: true
-      })
+      .send({ is_complete: true })
 
     /** assert */
     const expected: Expected = {
@@ -337,10 +315,7 @@ describe('Update a todo', () => {
     const expected: Expected = {
       statusCode: 400,
       headers: [/application\/json/i, /charset=utf-8/i],
-      body: {
-        status: 'error',
-        msg: 'Bad request.'
-      }
+      body: { status: 'error', msg: 'Bad request.' }
     }
     processTestCase(actual, expected)
   })
@@ -357,10 +332,7 @@ describe('Update a todo', () => {
     const expected: Expected = {
       statusCode: 400,
       headers: [/application\/json/i, /charset=utf-8/i],
-      body: {
-        status: 'error',
-        msg: 'Bad request.'
-      }
+      body: { status: 'error', msg: 'Bad request.' }
     }
     processTestCase(actual, expected)
   })
@@ -382,10 +354,7 @@ describe('Update a todo', () => {
     const expected: Expected = {
       statusCode: 400,
       headers: [/application\/json/i, /charset=utf-8/i],
-      body: {
-        status: 'error',
-        msg: 'Bad request.'
-      }
+      body: { status: 'error', msg: 'Bad request.' }
     }
     processTestCase(actual, expected)
   })
@@ -396,16 +365,12 @@ describe('Update a todo', () => {
 
     // mock database operation error
     const spyUpdateOne = jest.spyOn(todoRepo, 'updateOne')
-      .mockImplementation(() => {
-        throw new Error()
-      })
+      .mockImplementation(() => { throw new Error() })
 
     /** act */
     const actual = await request(globalApp)
       .patch('/api/v1/todos/1')
-      .send({
-        name: 'solving leetcode problems'
-      })
+      .send({ name: 'solving leetcode problems' })
 
     // restore the mock
     spyUpdateOne.mockRestore()
@@ -414,10 +379,7 @@ describe('Update a todo', () => {
     const expected: Expected = {
       statusCode: 500,
       headers: [/application\/json/i, /charset=utf-8/i],
-      body: {
-        status: 'error',
-        msg: 'Internal server error.'
-      }
+      body: { status: 'error', msg: 'Internal server error.' }
     }
     processTestCase(actual, expected)
   })
@@ -455,10 +417,7 @@ describe('Delete a todo', () => {
     const expected: Expected = {
       statusCode: 400,
       headers: [/application\/json/i, /charset=utf-8/i],
-      body: {
-        status: 'error',
-        msg: 'Bad request.'
-      }
+      body: { status: 'error', msg: 'Bad request.' }
     }
     processTestCase(actual, expected)
   })
@@ -473,10 +432,7 @@ describe('Delete a todo', () => {
     const expected: Expected = {
       statusCode: 400,
       headers: [/application\/json/i, /charset=utf-8/i],
-      body: {
-        status: 'error',
-        msg: 'Bad request.'
-      }
+      body: { status: 'error', msg: 'Bad request.' }
     }
     processTestCase(actual, expected)
   })
@@ -487,9 +443,7 @@ describe('Delete a todo', () => {
 
     // mock database operation error
     const spyDeleteOne = jest.spyOn(todoRepo, 'deleteOne')
-      .mockImplementation(() => {
-        throw new Error()
-      })
+      .mockImplementation(() => { throw new Error() })
 
     /** act */
     const actual = await request(globalApp).delete('/api/v1/todos/1')
@@ -501,10 +455,7 @@ describe('Delete a todo', () => {
     const expected: Expected = {
       statusCode: 500,
       headers: [/application\/json/i, /charset=utf-8/i],
-      body: {
-        status: 'error',
-        msg: 'Internal server error.'
-      }
+      body: { status: 'error', msg: 'Internal server error.' }
     }
     processTestCase(actual, expected)
   })
