@@ -105,12 +105,19 @@ describe('Read all todos', () => {
 })
 
 describe('Read a todo', () => {
+  // fake data
+  const mockTodo: Todo = {
+    id: 1,
+    name: 'mock name',
+    is_complete: false
+  }
+
   // mock func
   const mockGetOne = async (id: number) => {
     let todo: Todo | undefined
 
-    if (id >= 1) {
-      todo = { id, name: 'mock name', is_complete: false }
+    if (id === mockTodo.id) {
+      todo = mockTodo
     }
 
     return todo
@@ -171,7 +178,7 @@ describe('Read a todo', () => {
 
 describe('Update a todo', () => {
   // fake data
-  const originTodo = {
+  const originTodo: Todo = {
     id: 1,
     name: 'origin name',
     is_complete: false
