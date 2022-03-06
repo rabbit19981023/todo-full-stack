@@ -40,19 +40,25 @@ This might NOT be a simple todo list as you think. The whole project was develop
 
 ## Vue Setup
 
-1. Install all dependencies version-locked:
+1. Get into Vue Docker container:
+
+  ```bash
+  $ sudo docker exec -it todo_vue /bin/bash
+  ````
+
+2. Install all dependencies version-locked:
 
   ```bash
   $ npm ci
   ```
 
-2. Run all unit tests:
+3. Run all unit tests:
 
   ```bash
   $ npm run test:unit
   ```
 
-3. Run the development server:
+4. Run the development server:
 
   ```bash
   $ npm run serve
@@ -122,31 +128,37 @@ This might NOT be a simple todo list as you think. The whole project was develop
 
 ## Express Setup
 
-1. Install all dependencies version-locked:
+1. Get into Express Docker container:
+
+  ```bash
+  $ sudo docker exec -it todo_express /bin/bash
+  ```
+
+2. Install all dependencies version-locked:
 
   ```bash
   $ npm ci
   ```
 
-2. Run database migrations for development:
+3. Run database migrations for development:
 
   ```bash
   $ npm run typeorm -- migration:run --connection development
   ```
 
-3. Run all unit tests:
+4. Run all unit tests:
 
   ```bash
   $ npm run test:unit
   ```
 
-4. Run all integration tests:
+5. Run all integration tests:
 
   ```bash
   $ npm run test:integration
   ```
 
-5. Run the development server:
+6. Run the development server:
 
   ```bash
   $ npm run serve
